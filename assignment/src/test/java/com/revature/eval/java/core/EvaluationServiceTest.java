@@ -204,7 +204,7 @@ public class EvaluationServiceTest {
 	public void countOneWord() {
 		Map<String, Integer> expectedWordCount = new HashMap<>();
 		expectedWordCount.put("word", 1);
-
+		
 		Map<String, Integer> actualWordCount = evaluationService.wordCount("word");
 		assertEquals(expectedWordCount, actualWordCount);
 	}
@@ -215,7 +215,7 @@ public class EvaluationServiceTest {
 		expectedWordCount.put("one", 1);
 		expectedWordCount.put("of", 1);
 		expectedWordCount.put("each", 1);
-
+		
 		Map<String, Integer> actualWordCount = evaluationService.wordCount("one of each");
 		assertEquals(expectedWordCount, actualWordCount);
 	}
@@ -239,7 +239,7 @@ public class EvaluationServiceTest {
 		expectedWordCount.put("one", 1);
 		expectedWordCount.put("two", 1);
 		expectedWordCount.put("three", 1);
-
+		
 		Map<String, Integer> actualWordCount = evaluationService.wordCount("one,two,three");
 		assertEquals(expectedWordCount, actualWordCount);
 	}
@@ -250,7 +250,7 @@ public class EvaluationServiceTest {
 		expectedWordCount.put("one", 1);
 		expectedWordCount.put("two", 1);
 		expectedWordCount.put("three", 1);
-
+		
 		Map<String, Integer> actualWordCount = evaluationService.wordCount("one,\ntwo,\nthree");
 		assertEquals(expectedWordCount, actualWordCount);
 	}

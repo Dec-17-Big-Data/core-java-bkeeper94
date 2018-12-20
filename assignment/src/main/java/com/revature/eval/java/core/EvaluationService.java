@@ -2,6 +2,7 @@ package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -227,8 +228,21 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Map<String, Integer> wordCount(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		//make empty HashMap
+		Map<String, Integer> m = new HashMap<String, Integer>();
+		//create string array of all words contained in input phrase 
+		String[] sa =string.split(",?[^a-zA-z]"); //regex for all characters except letters 
+		//assumed hyphened words are one word
+		//count the number of occurrences of each word and populate the HashMap
+		for (int i = 0; i < sa.length; i++) {
+			if (m.containsKey(sa[i])) {
+				m.replace(sa[i], 1 + m.get(sa[i]));
+			}
+			else {
+				m.put(sa[i], 1);
+			}
+		}
+		return m;
 	}
 
 	/**
