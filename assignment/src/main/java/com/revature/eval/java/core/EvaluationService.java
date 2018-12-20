@@ -204,8 +204,17 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		//remove country code if one exists
+		if (string.substring(0, 2).compareTo("+1")==0) {
+			StringBuilder sb = new StringBuilder(string);
+			sb.deleteCharAt(1);
+			string = sb.toString();
+		}
+		//clean up rest of phone number; used regex for keeping only numbers 0 thru 9
+		if (string.replaceAll("[^0-9]", "").length() != 10) {
+			throw new IllegalArgumentException();
+		}
+		return string.replaceAll("[^0-9]", "");
 	}
 
 	/**

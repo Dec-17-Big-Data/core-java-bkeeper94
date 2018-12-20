@@ -190,7 +190,13 @@ public class EvaluationServiceTest {
 		expectedException.expect(IllegalArgumentException.class);
 		evaluationService.cleanPhoneNumber("123-@:!-7890");
 	}
-
+	//created new test case for phone number with valid country code
+	@Test
+	public void cleansNumberWithCountryCode() {
+		final String expectedNumber = "2234567890";
+		final String actualNumber = evaluationService.cleanPhoneNumber("+1 (223) 456-7890");
+		assertEquals(expectedNumber, actualNumber);
+	}
 	/*******************************************************************
 	 * Question 6
 	 ******************************************************************/
