@@ -1,6 +1,7 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,8 +31,26 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		//Added import of ArrayList to complete this implementation
+		//Create ArrayList to hold all strings that will form acronym 
+		List<Character> sl = new ArrayList<Character>();
+		//Add the first character to the ArrayList
+		sl.add(phrase.charAt(0));
+		//Add all the letters that immediately follow whitespace and hyphens to the ArrayList
+		for (int i = 1; i < phrase.length(); i++) {
+			if (i != phrase.length()-1) {
+				if (phrase.charAt(i) == ' ' || phrase.charAt(i) == '-') {
+					sl.add(phrase.charAt(i+1));
+				}
+			}
+		}
+		//Create StringBuilder to make the acronym from the elements added to the ArrayList
+		StringBuilder sb = new StringBuilder(sl.size());
+		for (Character c : sl) {
+			sb.append(c);
+		}
+		//Use toString() and toUpperCase() to make the StringBuilder into the final result 
+		return sb.toString().toUpperCase();
 	}
 
 	/**
