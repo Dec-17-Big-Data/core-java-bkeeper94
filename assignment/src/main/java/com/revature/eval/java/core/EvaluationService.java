@@ -579,8 +579,30 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isValidIsbn(String string) {
-		// TODO Write an implementation for this method declaration
-		return true;
+		//check for invalid input
+		for (int i = 0; i < string.length(); i++) {
+			if (string.substring(i,i+1).matches("[a-zA-WYZ]")) {
+				return false;
+			}
+		}
+		//remove hyphens from string
+		string = string.replaceAll("-", "");
+		//convert X at end of ID to 10 if applicable
+		//and apply ISBN validation algorithm to all numbers in ID
+		int [] vals = new int[string.length()];
+		int count = 10;
+		int sum = 0;
+		for (int i = 0; i < string.length(); i++) {
+			if (string.charAt(i) == 'X') {
+				vals[i] = 10;
+			}
+			else {
+				vals[i] = Integer.parseInt(string.substring(i, i+1));
+			}
+			sum += count*vals[i];
+			count--;
+		}
+		return sum % 11 == 0; //returns result of algorithm
 	}
 
 	/**
@@ -671,7 +693,6 @@ public class EvaluationService {
 	public boolean isLuhnValid(String string) {
 		//check for invalid inputs
 		if (string.length() <= 1) {
-			System.out.println("here");
 			return false;
 		}
 		for (int i = 0; i < string.length(); i++) {
