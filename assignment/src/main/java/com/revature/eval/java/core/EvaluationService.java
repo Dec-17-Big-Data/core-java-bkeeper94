@@ -669,8 +669,47 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isLuhnValid(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		//check for invalid inputs
+		if (string.length() <= 1) {
+			System.out.println("here");
+			return false;
+		}
+		for (int i = 0; i < string.length(); i++) {
+			if (string.substring(i,i+1).matches("[a-zA-Z-]")) {
+				return false;
+			}
+		}
+		//remove spaces from string
+		//convert space-free string into array of ints
+		string = string.replaceAll(" ", "");
+		int [] vals = new int[string.length()];
+		for (int i = 0; i < string.length(); i++) {
+			vals[i] = Integer.parseInt(string.substring(i, i+1));
+		}
+		//alter values of int array according to algorithm and accrue the sum of the value
+		int sum = 0;
+		for (int i = vals.length - 1; i >= 0; i--) {
+			//for even number length
+			if (vals.length % 2 ==0) {
+				if (i % 2 == 0) {
+					vals[i] *= 2;
+					if (vals[i] > 9) {
+						vals[i] -= 9;
+					}
+				}
+			}
+			//for odd number length
+			else {
+				if (i % 2 != 0) {
+					vals[i] *= 2;
+					if (vals[i] > 9) {
+						vals[i] -= 9;
+					}
+				}
+			}
+			sum += vals[i];
+		}
+		return sum % 10 == 0;
 	}
 
 	/**
