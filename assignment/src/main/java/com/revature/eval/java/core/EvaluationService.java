@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class EvaluationService {
 
@@ -335,9 +337,41 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
-	public String toPigLatin(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+	public String toPigLatin(String string) { 
+		//assume string could be a phrase so separate the words first
+		String[] sa =string.split(",?[^a-zA-z]");
+		String finalStr = "";
+		//apply pig latin rules on all elements of sa
+		for (int i = 0; i < sa.length; i++) {
+			//account for special cases of sa[i] starting with qu or squ
+			if (sa[i].substring(0 , 2).compareToIgnoreCase("qu") == 0) {
+				sa[i] = sa[i].substring(2) + "quay";
+			}
+			else if (sa[i].substring(0 , 3).compareToIgnoreCase("squ") == 0) {
+				sa[i] = sa[i].substring(3) + "squay";
+			}
+			else { //when sa[i] does not begin with qu or squ
+				//find the first vowel of sa[i] 
+				String current = sa[i];
+				int vowelLoc = 0;
+				for (int j = 0; j < current.length(); j++) {
+					char c = current.charAt(j);
+					if (c == 'a' || c == 'A' || c == 'e' || c == 'E' || c == 'i' || c == 'I'
+							|| c == 'o' || c == 'O' || c == 'u' || c == 'U') {
+						vowelLoc = j;
+						break;
+					}
+				}
+				sa[i] = current.substring(vowelLoc) + current.substring(0 , vowelLoc) + "ay";
+			}
+			if (sa.length == 1 || i == sa.length - 1) {
+				finalStr = finalStr + sa[i];
+			}
+			else {
+				finalStr = finalStr + sa[i] + " ";
+			}
+		}
+		return finalStr;
 	}
 
 	/**
@@ -528,7 +562,7 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isPangram(String string) {
-		// TODO Write an implementation for this method declaration
+		
 		return false;
 	}
 
