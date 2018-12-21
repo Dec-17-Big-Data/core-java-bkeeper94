@@ -356,8 +356,13 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isArmstrongNumber(int input) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		String inputStr = Integer.toString(input);
+		int armstrongSum = 0;
+		for (int i = 0; i < inputStr.length(); i++) {
+			armstrongSum += Math.pow(Integer.parseInt(inputStr.substring(i, i+1)),
+					inputStr.length());
+		}
+		return input == armstrongSum;
 	}
 
 	/**
