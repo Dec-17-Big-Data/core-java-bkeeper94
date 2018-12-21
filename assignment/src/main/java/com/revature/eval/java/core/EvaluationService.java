@@ -779,8 +779,71 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int solveWordProblem(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		//update an int called flag that denotes the operation described
+		//by the word problem in string
+		int flag = 0; //flag = 1 is + , flag = 2 is - , flag = 3 is * , and flag = 4 is /
+		if (string.contains("plus")) {
+			flag = 1;
+		}
+		if (string.contains("minus")) {
+			flag = 2;
+		}
+		if (string.contains("multiplied by")) {
+			flag = 3;
+		}
+		if (string.contains("divided by")) {
+			flag = 4;
+		}
+		//identify the first occurrence of a hyphen, number, or plus sign
+		int firstNumDashPlus = 0;
+		for (int i = 0; i < string.length(); i++) {
+			if (string.substring(i,i+1).matches("-|[0-9]|[+]")) {
+				firstNumDashPlus = i;
+				break;
+			}
+		}
+		//retain the substring from firstNumDashPlus onward and remove ending punctuation
+		string = string.substring(firstNumDashPlus).replaceAll("[?]|[.]|[!]","");
+		//split this new string into string array containing the signed numbers as elements
+		String [] sa = string.split("[ plus ]|[ minus ]|[ multiplied by ]|[ divided by ]"); 
+		//add non-empty elements (the signed numbers) to an ArrayList
+		ArrayList<String> as = new ArrayList<String>();
+		for (int i = 0; i < sa.length; i++) {
+			if (sa[i].compareTo("") != 0) {
+				as.add(sa[i]);
+			}	
+		}
+		//iterate thru the ArrayList to convert all elements to their respective signed ints
+		//and place them into an int array of size as.size()
+		int [] finalNums = new int[as.size()];
+		for (int i = 0; i < as.size(); i++) {
+			String current = as.get(i);
+			if (current.contains("-")) {
+				current = current.substring(1);
+				finalNums[i] = -1*(Integer.parseInt(current));
+			}
+			else if(current.contains("+")){
+				current = current.substring(1);
+				finalNums[i] = (Integer.parseInt(current));
+			}
+			else {
+				finalNums[i] = (Integer.parseInt(current));
+			}
+		}
+		//apply pairwise operation based on value of flag
+		//unsure how to generalize this portion to two or more operations
+		switch (flag) {
+			case 1:
+				return finalNums[0] + finalNums[1];
+			case 2:
+				return finalNums[0] - finalNums[1];
+			case 3:
+				return finalNums[0] * finalNums[1];
+			case 4:
+				return finalNums[0] / finalNums[1];
+			default:
+				return 0;
+		}
 	}
 
 }
