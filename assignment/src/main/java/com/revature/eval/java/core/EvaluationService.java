@@ -3,10 +3,10 @@ package com.revature.eval.java.core;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Set;
 
 public class EvaluationService {
 
@@ -650,8 +650,26 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getSumOfMultiples(int i, int[] set) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		//use an outer for loop to generate the numbers from 1 to i-1 individually
+		//use an inner for loop to check if the ith int is a multiple of any member of set
+		//populate a HashSet s with each element found as a multiple; uniqueness is taken
+		//care of by definition of a Set
+		int num = 0;
+		Set<Integer> s = new HashSet<Integer> ();
+		for (int j = 0; j < i-1; j++) {
+			num++;
+			for (int k = 0; k < set.length; k++) {
+				if (num % set[k] == 0) {
+					s.add(num);
+				}
+			}
+		}
+		//compute the sum of the elements in HashSet s
+		int sum = 0;
+		for (Integer n:s) {
+			sum += n;
+		}
+		return sum;
 	}
 
 	/**
