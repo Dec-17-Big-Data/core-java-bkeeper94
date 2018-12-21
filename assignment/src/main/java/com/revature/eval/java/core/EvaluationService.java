@@ -410,8 +410,14 @@ public class EvaluationService {
 	 * @return
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		List<Long> primeFactors = new ArrayList<Long>();
+		for (int i = 2; i <= l; i++) {
+            while (l % i == 0) {
+                primeFactors.add((long) i);
+                l /= i;
+            }
+        }
+		return primeFactors;
 	}
 
 	/**
@@ -467,9 +473,38 @@ public class EvaluationService {
 	 * @param i
 	 * @return
 	 */
+	//helper method for determining if a value is prime 
+	public boolean isPrime(long n) {
+		//2 is the first prime number
+		if (n==2) {
+			return true;
+		}
+		//prime numbers are positive and are odd except for 2
+		if (n <= 1 || n %2 ==0) {
+			return false;
+		}
+		//checks for prime numbers for all n > 2
+		for (int i = 3; i <= Math.sqrt(n); i++) {
+			if (n % i == 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+			
 	public int calculateNthPrime(int i) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		if (i <= 1) {
+			throw new IllegalArgumentException();
+		}
+		int num = 1; //started at 1 because 1 is not prime (while loop skips 1)
+		int count = 0; //started at 0 to allow count to increment to 1 at first iteration
+		while (count < i) {
+			num++;
+			if (isPrime(num)) {
+				count++;
+			}
+		}
+		return num;
 	}
 
 	/**
@@ -545,7 +580,7 @@ public class EvaluationService {
 	 */
 	public boolean isValidIsbn(String string) {
 		// TODO Write an implementation for this method declaration
-		return false;
+		return true;
 	}
 
 	/**
@@ -562,7 +597,7 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isPangram(String string) {
-		
+		// TODO Write an implementation for this method declaration
 		return false;
 	}
 
