@@ -455,8 +455,29 @@ public class EvaluationService {
 		}
 
 		public String rotate(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			//create strings representing capital letters and lowercase letters
+			String lowers = "abcdefghijklmnopqrstuvwxyz";
+			String uppers = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+			//create char array of size string.length()
+			char [] c = new char[string.length()];
+			//iterate thru string and "rotate" the letter characters one at a time
+			//makes sure to run a matcher so that non-alphabet characters are not
+			//passed thru the cypher
+			for (int i = 0; i < string.length(); i++) {
+				String current = string.substring(i, i+1);
+				if (current.matches("[^a-zA-z]")) {
+					c[i] = string.charAt(i);
+				}
+				else {
+					if (current.compareTo(current.toLowerCase()) == 0) {
+						c[i] = lowers.charAt((lowers.indexOf(current) + key) % 26);
+					}
+					else if(current.compareTo(current.toUpperCase()) == 0) {
+						c[i] = uppers.charAt((uppers.indexOf(current) + key) % 26);
+					}
+				}
+			}
+			return new String(c);
 		}
 
 	}
