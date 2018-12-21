@@ -493,7 +493,7 @@ public class EvaluationService {
 	}
 			
 	public int calculateNthPrime(int i) {
-		if (i <= 1) {
+		if (i <= 0) {
 			throw new IllegalArgumentException();
 		}
 		int num = 1; //started at 1 because 1 is not prime (while loop skips 1)
