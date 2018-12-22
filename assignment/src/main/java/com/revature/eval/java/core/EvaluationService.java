@@ -561,8 +561,45 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String encode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			//string containing the lowercase alphabet
+			String alphabet = "abcdefghijklmnopqrstuvwxyz";
+			//remove all characters from string that are not numbers or letters
+			//and then make all letters lowercase
+			string = string.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();	
+			//encode the string character by character into a String ArrayList
+			List<String> c = new ArrayList<String>();
+			int elementsAdded = 0; //counter for tracking when to add a space
+			int count = 0; //counters to make sure the while loop terminates properly
+			int end = string.length();
+			while (count < end) {
+				if (elementsAdded > 0 && elementsAdded % 5 ==0) {
+					c.add(" ");
+					elementsAdded = 0;
+					end++;
+				}
+				else {
+					if (string.substring(count - (end - string.length()), 
+							count - (end - string.length())+1).matches("[a-z]")) {
+						String current = string.substring(count - (end - string.length()),
+								count - (end - string.length()) + 1);
+						int pos = alphabet.indexOf(current);
+						current = alphabet.substring(25 - pos, 26 - pos);
+						c.add(current);
+					}
+					else {
+						c.add(string.substring(count - (end - string.length()),
+								count - (end - string.length()) + 1));
+					}
+					elementsAdded++;
+				}
+				count++;
+			}
+			//concatenate elements of c together into final string
+			String finalStr = "";
+			for (String s : c) {
+				finalStr += s;
+			}
+			return finalStr;
 		}
 
 		/**
@@ -572,8 +609,22 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String decode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			//create a string containing the lowercase alphabet
+			String alphabet = "abcdefghijklmnopqrstuvwxyz";
+			//remove all spaces
+			string = string.replaceAll(" ", "");
+			//decode the string character by character into a char array
+			//ignore numbers and other non-alphabet characters
+			char[] c = new char[string.length()];
+			for (int i = 0; i < string.length(); i++) {
+				if (string.substring(i, i+1).matches("[a-z]")) {
+					c[i] = alphabet.charAt(25-alphabet.indexOf(string.substring(i, i+1)));
+				}
+				else {
+					c[i] = string.charAt(i);
+				}
+			}
+			return new String(c);
 		}
 	}
 
@@ -828,7 +879,7 @@ public class EvaluationService {
 		//split this new string into string array containing the signed numbers as elements
 		String [] sa = string.split("[ plus ]|[ minus ]|[ multiplied by ]|[ divided by ]"); 
 		//add non-empty elements (the signed numbers) to an ArrayList
-		ArrayList<String> as = new ArrayList<String>();
+		List<String> as = new ArrayList<String>();
 		for (int i = 0; i < sa.length; i++) {
 			if (sa[i].compareTo("") != 0) {
 				as.add(sa[i]);
