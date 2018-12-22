@@ -691,8 +691,19 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isPangram(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		//iterate thru the string and store each element into an ArrayList
+		//before each addition, check if the current element already exists in the List
+		//also, skip over spaces 
+		List <String> sl = new ArrayList<String> ();
+		for (int i = 0; i < string.length(); i++) {
+			if (string.substring(i, i + 1).matches("[a-zA-Z]")) {
+				if (!sl.contains(string.substring(i, i + 1))) {
+					sl.add(string.substring(i, i + 1));
+				}
+			}
+		}
+		//return whether sl.size() is equal to 26
+		return sl.size() == 26;
 	}
 
 	/**
